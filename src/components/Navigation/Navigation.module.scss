@@ -1,0 +1,15 @@
+@import '../../helpers/variables.scss';
+
+.link {
+  display: inline-block;
+  font-size: 18px;
+  font-weight: 500;
+  text-decoration: none;
+  color: $color;
+  padding: 12px;
+}
+
+.activeLink {
+  composes: link;
+  color: $accent-color;
+}

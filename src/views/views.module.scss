@@ -1,0 +1,125 @@
+@import '../helpers/variables.scss';
+
+.link {
+  display: inline-block;
+  font-size: 18px;
+  font-weight: 500;
+  text-decoration: none;
+  color: $color;
+  padding: 5px;
+}
+
+.activeLink {
+  composes: link;
+  color: $accent-color;
+}
+
+ul {
+  list-style: none;
+}
+
+.isBold {
+  font-weight: 700;
+}
+
+.goBack {
+  font-size: 12px;
+}
+
+.title {
+  margin-bottom: 20px;
+}
+
+.movieInfo {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.moviePoster {
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+.movieData {
+  width: 65%;
+}
+
+.movieTitile {
+  font-size: 20px;
+  margin-bottom: 30px;
+  padding-left: 20px;
+}
+
+.movieText {
+  margin-bottom: 20px;
+  padding-left: 20px;
+}
+
+.addInfo {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-top: $border;
+  border-bottom: $border;
+}
+
+.castList {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 100%;
+  margin-top: 30px;
+  margin-right: -20px;
+  margin-bottom: -20px;
+}
+
+.castInfo {
+  display: flex;
+  justify-content: space-between;
+
+  border: $border-movie;
+  border-radius: 5px;
+  width: calc((100% / 3) - 20px);
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+.castsData {
+  width: calc(100% - 120px);
+  padding-top: 10px;
+}
+
+.castsText {
+  margin-bottom: 10px;
+}
+
+.reviewList {
+  width: 100%;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.itemPoster {
+  display: block;
+  margin: 5px;
+}
+
+.reviewAvatar {
+  display: block;
+  margin: 5px 5px 0 5px;
+}
+
+.reviewInfo {
+  display: flex;
+  justify-content: space-between;
+  border: $border-movie;
+  border-radius: 5px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+.find {
+  width: 60%;
+  margin-bottom: 30px;
+  margin-left: 10px;
+}

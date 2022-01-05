@@ -1,0 +1,24 @@
+@import '../../../helpers/variables.scss';
+
+.movieItem {
+  border: $border-movie;
+  border-radius: 5px;
+
+  width: 260px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+
+  transition: transform $anim-duration $anim-timing-function,
+    box-shadow $anim-duration $anim-timing-function;
+
+  &:hover,
+  &:focus {
+    transform: scale(1.04);
+    box-shadow: $box-shadow-movie;
+  }
+}
+
+.info {
+  padding: 5px 5px 5px 15px;
+  color: $text-color;
+}

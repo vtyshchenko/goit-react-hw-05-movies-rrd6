@@ -1,0 +1,36 @@
+@import '../../helpers/variables.scss';
+
+.ButtonWrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 80px;
+}
+
+.Button {
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  font-family: inherit;
+  font-size: 18px;
+  line-height: 24px;
+  font-style: normal;
+  font-weight: 500;
+  color: $button-color;
+  background-color: $button-background-color;
+  cursor: pointer;
+  box-shadow: $box-shadow;
+  border: 0;
+  border-radius: 2px;
+
+  width: 200px;
+  min-width: 180px;
+  height: 40px;
+  padding: 8px 16px;
+
+  transition: all $anim-duration $anim-timing-function;
+}
+
+.Button:hover,
+.Button:focus {
+  background-color: $button-active-background-color;
+}
