@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import styles from './views.module.scss';
+import NoFotoMale from '../images/no-foto-male.jpg';
 
 export default function ReviewsView({ review }) {
   return review.length > 0 ? (
@@ -7,7 +8,7 @@ export default function ReviewsView({ review }) {
       {review.map(item => {
         const avatar_path = item.author_details.avatar_path
           ? item.author_details.avatar_path.substring(1)
-          : '';
+          : NoFotoMale;
         return (
           <li
             key={`${item.author}_${item.created_at}`}
