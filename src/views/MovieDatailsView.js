@@ -1,12 +1,5 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
-import {
-  NavLink,
-  Link,
-  useRouteMatch,
-  Route,
-  useLocation,
-} from 'react-router-dom';
-import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
+import { NavLink, Link, Route, useLocation, useParams } from 'react-router-dom';
 
 import {
   fetchMovieById,
@@ -23,13 +16,17 @@ const ReviewsView = lazy(() =>
   import('./ReviewsView.js' /* webpackChunkName: "review-view" */),
 );
 
+const isActiveLink = ({ isActive }) =>
+  isActive ? styles.activeLink : styles.link;
+
 export default function MovieDetailsView() {
   const [movie, setMovie] = useState(null);
   const [casts, setCasts] = useState(null);
   const [review, setReview] = useState(null);
-  const params = useParams();
+  const params = useParams;
   const locate = useLocation();
-  const { url, path } = useRouteMatch();
+  const url = '';
+  const path = '';
 
   useEffect(() => {
     fetchMovieById(params.movieId).then(setMovie);
@@ -87,11 +84,10 @@ export default function MovieDetailsView() {
           <li>
             <NavLink
               to={{
-                pathname: `${url}/cast`,
+                pathname: `/cast`,
                 state: { from: locate?.state?.from ?? '/' },
               }}
-              className={styles.link}
-              // activeClassName={styles.activeLink}
+              className={isActiveLink}
             >
               Cast
             </NavLink>
@@ -99,25 +95,24 @@ export default function MovieDetailsView() {
           <li>
             <NavLink
               to={{
-                pathname: `${url}/review`,
+                pathname: `/review`,
                 state: { from: locate?.state?.from ?? '/' },
               }}
-              className={styles.link}
-              // activeClassName={styles.activeLink}
+              className={isActiveLink}
             >
               Reviews
             </NavLink>
           </li>
         </ul>
       </div>
-      <Suspense fallback={<h1>LOADING...</h1>}>
+      {/* <Suspense fallback={<h1>LOADING...</h1>}>
         <Route path={`${path}/cast`}>
           {casts && casts.cast && <CastView casts={casts.cast} />}
         </Route>
         <Route path={`${path}/review`}>
           {review && <ReviewsView review={review.results} />}
         </Route>
-      </Suspense>
+      </Suspense> */}
     </>
   ) : (
     <p>No films found on id {params.movieId}</p>

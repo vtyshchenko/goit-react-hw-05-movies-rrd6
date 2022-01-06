@@ -1,5 +1,5 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
-import { useRouteMatch, useHistory, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { fetchMoviesByKeyword } from '../services/api-service';
 import useDebounce from '../helpers/myDebounce';
 
@@ -17,8 +17,7 @@ export default function MoviesView() {
   const [searchText, setSearchText] = useState('');
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
-  const { url } = useRouteMatch();
-  const history = useHistory();
+  const url = '';
   const locate = useLocation();
 
   const debouncedSearch = useDebounce(searchText, 500);
@@ -36,7 +35,7 @@ export default function MoviesView() {
       fetchMoviesByKeyword(searchText, 1).then(response => {
         setMovies(response.results);
         setTotal(response.total_pages);
-        history.push({ ...locate, search: `query=${searchText}` });
+        // history.push({ ...locate, search: `query=${searchText}` });
       });
   }, [debouncedSearch]);
 

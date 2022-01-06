@@ -9,14 +9,14 @@ import Header from './components/Header';
 const HomeView = lazy(() =>
   import('./views/HomeView.js' /* webpackChunkName: "home-view" */),
 );
-// const MoviesView = lazy(() =>
-//   import('./views/MoviesView.js' /* webpackChunkName: "movies-view" */),
-// );
-// const MovieDatailsView = lazy(() =>
-//   import(
-//     './views/MovieDatailsView.js' /* webpackChunkName: "movie-detail-view" */
-//   ),
-// );
+const MoviesView = lazy(() =>
+  import('./views/MoviesView.js' /* webpackChunkName: "movies-view" */),
+);
+const MovieDatailsView = lazy(() =>
+  import(
+    './views/MovieDatailsView.js' /* webpackChunkName: "movie-detail-view" */
+  ),
+);
 const NotFoundView = lazy(() =>
   import('./views/NotFoundView.js' /* webpackChunkName: "not-found-view" */),
 );
@@ -35,8 +35,8 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Header />}>
             <Route index element={<HomeView />} />
-            {/* <Route path="/movies" element={<MoviesView />} /> */}
-            {/* <Route path="/movies/:movieId/*" element={<MovieDatailsView />} /> */}
+            <Route path="movies" element={<MoviesView />} />
+            <Route path="movies/:movieId/*" element={<MovieDatailsView />} />
             <Route path="*" element={<NotFoundView />} />
           </Route>
         </Routes>

@@ -1,6 +1,4 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
-// import { useRouteMatch, useLocation } from 'react-router-dom';
-// import { useLocation } from 'react-router-dom';
 
 import { fetchMoviePopular } from '../../services/api-service';
 
@@ -14,10 +12,7 @@ function HomePage() {
   const [movies, setMovies] = useState(null);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
-  // const { url } = useRouteMatch();
   const url = '';
-  // const locate = useLocation();
-  const locate = '';
 
   useEffect(() => {
     fetchMoviePopular(page).then(response => {
@@ -49,7 +44,7 @@ function HomePage() {
   return movies ? (
     <>
       <Suspense fallback={<h1>LOADING...</h1>}>
-        <MoviesList movies={movies} locate={locate} url={`${url}movies`} />
+        <MoviesList movies={movies} url={`${url}movies`} />
       </Suspense>
       {page < total && (
         <Button
