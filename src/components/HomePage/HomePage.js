@@ -2,8 +2,6 @@ import { useState, useEffect, lazy, Suspense } from 'react';
 
 import { fetchMoviePopular } from '../../services/api-service';
 
-import Button from '../Button';
-
 const MoviesList = lazy(() =>
   import('../MovieList/MoviesList.js' /* webpackChunkName: "movie-list" */),
 );
@@ -11,14 +9,12 @@ const MoviesList = lazy(() =>
 function HomePage() {
   const [movies, setMovies] = useState(null);
   const [page, setPage] = useState(1);
-  const [total, setTotal] = useState(0);
-  const url = '';
+  const url = '/movies';
 
   useEffect(() => {
     fetchMoviePopular(page).then(response => {
       setPage(response.page);
       setMovies(response.results);
-      setTotal(response.total_pages);
     });
   }, []);
 
@@ -44,15 +40,8 @@ function HomePage() {
   return movies ? (
     <>
       <Suspense fallback={<h1>LOADING...</h1>}>
-        <MoviesList movies={movies} url={`${url}movies`} />
+        <MoviesList movies={movies} url={`${url}`} />
       </Suspense>
-      {page < total && (
-        <Button
-          onClick={() => {
-            setPage(status => status + 1);
-          }}
-        />
-      )}
     </>
   ) : (
     <p>No films</p>

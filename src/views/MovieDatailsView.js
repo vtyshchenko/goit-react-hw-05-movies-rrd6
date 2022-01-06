@@ -1,5 +1,12 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
-import { NavLink, Link, Route, useLocation, useParams } from 'react-router-dom';
+import {
+  NavLink,
+  Link,
+  Routes,
+  Route,
+  useLocation,
+  useParams,
+} from 'react-router-dom';
 
 import {
   fetchMovieById,
@@ -23,10 +30,8 @@ export default function MovieDetailsView() {
   const [movie, setMovie] = useState(null);
   const [casts, setCasts] = useState(null);
   const [review, setReview] = useState(null);
-  const params = useParams;
+  const params = useParams();
   const locate = useLocation();
-  const url = '';
-  const path = '';
 
   useEffect(() => {
     fetchMovieById(params.movieId).then(setMovie);
@@ -34,14 +39,12 @@ export default function MovieDetailsView() {
     fetchMovieByIdReviews(params.movieId).then(setReview);
   }, []);
 
-  let genres =
-    movie && movie.length > 0
-      ? movie.genres.map(curr => curr.name).join(', ')
-      : 'unknown';
-  let companies =
-    movie && movie.length > 0
-      ? movie.production_companies.map(curr => curr.name).join(', ')
-      : 'unknown';
+  let genres = movie
+    ? movie.genres.map(curr => curr.name).join(', ')
+    : 'unknown';
+  let companies = movie
+    ? movie.production_companies.map(curr => curr.name).join(', ')
+    : 'unknown';
 
   const fromLink = `${locate?.state?.from?.pathname ?? '/'}${
     locate?.state?.from?.search ?? ''
@@ -83,10 +86,8 @@ export default function MovieDetailsView() {
         <ul>
           <li>
             <NavLink
-              to={{
-                pathname: `/cast`,
-                state: { from: locate?.state?.from ?? '/' },
-              }}
+              to="cast"
+              state={{ from: locate?.state?.from ?? '/' }}
               className={isActiveLink}
             >
               Cast
@@ -94,10 +95,8 @@ export default function MovieDetailsView() {
           </li>
           <li>
             <NavLink
-              to={{
-                pathname: `/review`,
-                state: { from: locate?.state?.from ?? '/' },
-              }}
+              to="review"
+              state={{ from: locate?.state?.from ?? '/' }}
               className={isActiveLink}
             >
               Reviews
@@ -105,14 +104,19 @@ export default function MovieDetailsView() {
           </li>
         </ul>
       </div>
-      {/* <Suspense fallback={<h1>LOADING...</h1>}>
-        <Route path={`${path}/cast`}>
-          {casts && casts.cast && <CastView casts={casts.cast} />}
-        </Route>
-        <Route path={`${path}/review`}>
-          {review && <ReviewsView review={review.results} />}
-        </Route>
-      </Suspense> */}
+      <Suspense fallback={<h1>LOADING...</h1>}>
+        <Routes>
+          <Route
+            path="cast"
+            element={casts && casts.cast && <CastView casts={casts.cast} />}
+          />
+
+          <Route
+            path="review"
+            element={review && <ReviewsView review={review.results} />}
+          />
+        </Routes>
+      </Suspense>
     </>
   ) : (
     <p>No films found on id {params.movieId}</p>

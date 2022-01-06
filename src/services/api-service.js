@@ -15,6 +15,9 @@ export function fetchMoviePopular(page) {
 
 // ========== Search by keyword
 export function fetchMoviesByKeyword(query, page = null) {
+  if (!query) {
+    return Promise.reject('Search text not set.');
+  }
   const LANG = getLanguage();
   if (!page) {
     page = 1;

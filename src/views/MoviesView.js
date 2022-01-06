@@ -1,9 +1,8 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import { fetchMoviesByKeyword } from '../services/api-service';
 import useDebounce from '../helpers/myDebounce';
 
-import Button from '../components/Button';
 import stylesFind from './views.module.scss';
 
 const MoviesList = lazy(() =>
@@ -15,48 +14,34 @@ const MoviesList = lazy(() =>
 export default function MoviesView() {
   const [movies, setMovies] = useState(null);
   const [searchText, setSearchText] = useState('');
-  const [page, setPage] = useState(1);
-  const [total, setTotal] = useState(0);
-  const url = '';
+  const [searchParams, setsearchParams] = useSearchParams();
+  const [page, setPage] = useState(null);
+
   const locate = useLocation();
 
   const debouncedSearch = useDebounce(searchText, 500);
   const handleChange = event => {
     setSearchText(event.target.value);
+    setsearchParams({ query: event.target.value });
   };
 
   useEffect(() => {
-    const text = new URLSearchParams(locate.search).get('query');
+    const text = searchParams.get('query') || '';
     text && setSearchText(text);
   }, []);
 
+  const getMovies = pageNumber => {
+    return fetchMoviesByKeyword(searchText, pageNumber).then(response => {
+      setMovies(response.results);
+    });
+  };
+
   useEffect(() => {
-    debouncedSearch &&
-      fetchMoviesByKeyword(searchText, 1).then(response => {
-        setMovies(response.results);
-        setTotal(response.total_pages);
-        // history.push({ ...locate, search: `query=${searchText}` });
-      });
+    searchText && debouncedSearch && getMovies(1);
   }, [debouncedSearch]);
 
   useEffect(() => {
-    searchText &&
-      fetchMoviesByKeyword(searchText, page).then(response => {
-        let movieList = [];
-
-        movieList =
-          movies && movies.length > 0
-            ? [...movies, ...response.results]
-            : [...response.results];
-
-        setMovies(movieList);
-
-        page > 1 &&
-          window.scrollBy({
-            top: document.documentElement.clientHeight,
-            behavior: 'smooth',
-          });
-      });
+    searchText && getMovies(page);
   }, [page]);
 
   return (
@@ -72,18 +57,12 @@ export default function MoviesView() {
           onChange={handleChange}
         />
       </label>
+
       {movies && (
         <>
           <Suspense fallback={<h1>LOADING...</h1>}>
-            <MoviesList movies={movies} locate={locate} url={url} />
+            <MoviesList movies={movies} locate={locate} />
           </Suspense>
-          {page < total && (
-            <Button
-              onClick={() => {
-                setPage(status => status + 1);
-              }}
-            />
-          )}
         </>
       )}
     </>
