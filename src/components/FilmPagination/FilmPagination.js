@@ -4,6 +4,18 @@ import { useSearchParams } from 'react-router-dom';
 import styles from './FilmPagination.module.scss';
 
 export default function FilmPagination({ pageTotal, page, setPage }) {
+  const hendlerSubmit = (e, value) => {
+    setPage(value);
+    const text = searchParams.get('query') || null;
+    const params = {};
+    if (text) {
+      params.query = text;
+    }
+    params.page = value;
+
+    setsearchParams(params);
+  };
+
   const [searchParams, setsearchParams] = useSearchParams();
   return (
     <>
@@ -13,17 +25,7 @@ export default function FilmPagination({ pageTotal, page, setPage }) {
           count={pageTotal}
           page={Number(page)}
           color={'primary'}
-          onChange={(e, value) => {
-            setPage(value);
-            const text = searchParams.get('query') || null;
-            const params = {};
-            if (text) {
-              params.query = text;
-            }
-            params.page = value;
-
-            setsearchParams(params);
-          }}
+          onChange={hendlerSubmit}
         >
           <PaginationItem selected={true} /> ;
         </Pagination>

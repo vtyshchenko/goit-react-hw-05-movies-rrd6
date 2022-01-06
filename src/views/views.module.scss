@@ -120,6 +120,14 @@ ul {
 
 .find {
   width: 60%;
+  height: 34px;
+  border-radius: 5px;
+  padding-left: 5px;
   margin-bottom: 30px;
   margin-left: 10px;
+}
+
+.findDone {
+  composes: find;
+  background-color: $accent-background-color;
 }

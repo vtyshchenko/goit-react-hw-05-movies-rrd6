@@ -8,7 +8,7 @@ const MoviesList = lazy(() =>
   import('../MovieList/MoviesList.js' /* webpackChunkName: "movie-list" */),
 );
 
-function HomePage() {
+function TrandingMovieList() {
   const [movies, setMovies] = useState(null);
   const [page, setPage] = useState(1);
   const [pageTotal, setPageTotal] = useState(1);
@@ -42,4 +42,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default TrandingMovieList;

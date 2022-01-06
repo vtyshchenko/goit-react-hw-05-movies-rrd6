@@ -17,6 +17,7 @@ export default function MoviesView() {
   const [searchText, setSearchText] = useState('');
   const [searchParams, setsearchParams] = useSearchParams();
   const [page, setPage] = useState(1);
+  const [isFetchDone, setIsFetchDone] = useState(false);
   const [pageTotal, setPageTotal] = useState(null);
 
   const locate = useLocation();
@@ -28,6 +29,8 @@ export default function MoviesView() {
     !event.target.value && setMovies(null);
     setPage(1);
     setMovies(null);
+
+    setIsFetchDone(false);
   };
 
   useEffect(() => {
@@ -42,6 +45,7 @@ export default function MoviesView() {
     return fetchMoviesByKeyword(searchText, pageNumber).then(response => {
       setMovies(response.results);
       setPageTotal(response.total_pages);
+      setIsFetchDone(true);
     });
   };
 
@@ -58,7 +62,7 @@ export default function MoviesView() {
       <label>
         Find movies
         <input
-          className={stylesFind.find}
+          className={isFetchDone ? stylesFind.findDone : stylesFind.find}
           type="text"
           name="query"
           value={searchText}

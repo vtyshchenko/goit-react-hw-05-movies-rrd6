@@ -31,7 +31,6 @@ export default function App() {
           </>
         }
       >
-        {/* <Header /> */}
         <Routes>
           <Route path="/" element={<Header />}>
             <Route index element={<HomeView />} />

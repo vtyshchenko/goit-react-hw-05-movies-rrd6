@@ -1,18 +1,12 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
-import {
-  NavLink,
-  Link,
-  Routes,
-  Route,
-  useLocation,
-  useParams,
-} from 'react-router-dom';
+import { Routes, Route, useLocation, useParams } from 'react-router-dom';
 
 import {
   fetchMovieById,
   fetchMovieByIdCredits,
   fetchMovieByIdReviews,
 } from '../services/api-service';
+import { CustomLink } from '../components/CustomLink/CustomLink';
 
 import styles from './views.module.scss';
 import NoPoster from '../images/no-poster.png';
@@ -23,9 +17,6 @@ const CastView = lazy(() =>
 const ReviewsView = lazy(() =>
   import('./ReviewsView.js' /* webpackChunkName: "review-view" */),
 );
-
-const isActiveLink = ({ isActive }) =>
-  isActive ? styles.activeLink : styles.link;
 
 export default function MovieDetailsView() {
   const [movie, setMovie] = useState(null);
@@ -60,9 +51,7 @@ export default function MovieDetailsView() {
       : NoPoster;
   return movie ? (
     <>
-      <Link className={styles.goBack} to={fromLink}>
-        &larr; go back
-      </Link>
+      <CustomLink to={fromLink}>&larr; go back</CustomLink>
       <div className={styles.movieInfo}>
         <img
           className={styles.moviePoster}
@@ -93,22 +82,17 @@ export default function MovieDetailsView() {
         <h2>Additional information</h2>
         <ul>
           <li>
-            <NavLink
-              to="cast"
-              state={{ from: locate?.state?.from ?? '/' }}
-              className={isActiveLink}
-            >
+            <CustomLink to="cast" state={{ from: locate?.state?.from ?? '/' }}>
               Cast
-            </NavLink>
+            </CustomLink>
           </li>
           <li>
-            <NavLink
+            <CustomLink
               to="review"
               state={{ from: locate?.state?.from ?? '/' }}
-              className={isActiveLink}
             >
               Reviews
-            </NavLink>
+            </CustomLink>
           </li>
         </ul>
       </div>
