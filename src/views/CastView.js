@@ -2,15 +2,22 @@ import PropTypes from 'prop-types';
 
 import styles from './views.module.scss';
 
+import NoFotoMFemale from '../images/no-foto-female.jpg';
+import NoFotoMale from '../images/no-foto-male.jpg';
 export default function CastView({ casts }) {
   return casts.length > 0 ? (
     <ul className={styles.castList}>
       {casts.map(item => {
+        const avatar = item.gender === 2 ? NoFotoMale : NoFotoMFemale;
+        const imageSrc = item.profile_path
+          ? `https://image.tmdb.org/t/p/w500${item.profile_path}`
+          : avatar;
+
         return (
           <li key={item.name} className={styles.castInfo}>
             <img
               className={styles.itemPoster}
-              src={`https://image.tmdb.org/t/p/w500${item.profile_path}`}
+              src={imageSrc}
               alt={item.name}
               width={'100px'}
             ></img>

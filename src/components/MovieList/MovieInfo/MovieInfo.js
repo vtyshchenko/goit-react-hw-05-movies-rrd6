@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import styles from './MovieInfo.module.scss';
 
 export default function MovieInfo({ item, locate, url }) {
-  const path = `${locate ? locate.pathname : url}/${item.id}`;
+  const path = `${url ? url : locate.pathname}/${item.id}`;
   const state = locate ? { from: locate } : null;
 
   return (

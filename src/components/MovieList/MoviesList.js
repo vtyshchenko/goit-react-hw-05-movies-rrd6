@@ -6,7 +6,7 @@ const MovieInfo = lazy(() =>
   import('./MovieInfo/MovieInfo.js' /* webpackChunkName: "movie-info" */),
 );
 
-export default function MoviesList({ movies, locate, url }) {
+export default function MoviesList({ movies, locate, url = null }) {
   return (
     <>
       <ul className={styles.moviesList}>
