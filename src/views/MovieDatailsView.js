@@ -46,9 +46,12 @@ export default function MovieDetailsView() {
     ? movie.production_companies.map(curr => curr.name).join(', ')
     : 'unknown';
 
-  const fromLink = `${locate?.state?.from?.pathname ?? '/'}${
-    locate?.state?.from?.search ?? ''
-  }`;
+  const fromLink =
+    locate?.state?.from === '/'
+      ? locate?.state?.from
+      : `${locate?.state?.from?.pathname ?? '/'}${
+          locate?.state?.from?.search ?? ''
+        }`;
 
   return movie ? (
     <>
