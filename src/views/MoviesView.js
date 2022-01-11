@@ -28,8 +28,6 @@ export default function MoviesView() {
     setsearchParams({ query: event.target.value });
     !event.target.value && setMovies(null);
     setPage(1);
-    setMovies(null);
-
     setIsFetchDone(false);
   };
 
