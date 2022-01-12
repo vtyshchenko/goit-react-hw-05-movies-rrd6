@@ -1,4 +1,5 @@
 import { Pagination, Stack, PaginationItem } from '@mui/material';
+import PropTypes from 'prop-types';
 
 import { useSearchParams } from 'react-router-dom';
 import styles from './FilmPagination.module.scss';
@@ -34,3 +35,9 @@ export default function FilmPagination({ pageTotal, page, setPage }) {
     </>
   );
 }
+
+FilmPagination.propTypes = {
+  pageTotal: PropTypes.number.isRequired,
+  page: PropTypes.number.isRequired,
+  setPage: PropTypes.func.isRequired,
+};

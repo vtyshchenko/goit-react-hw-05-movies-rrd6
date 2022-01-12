@@ -1,4 +1,5 @@
 import { Link, useMatch, useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 export const CustomLink = ({ to, children, ...props }) => {
   const match = useMatch({ path: to, end: true });
@@ -19,4 +20,10 @@ export const CustomLink = ({ to, children, ...props }) => {
       {children}
     </Link>
   );
+};
+
+CustomLink.propTypes = {
+  to: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+  props: PropTypes.array,
 };
